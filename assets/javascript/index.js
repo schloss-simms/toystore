@@ -8,20 +8,21 @@ const renderBadge = () => {
 const listenToAdd = (buttons) => {
   buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
-      const { id, name, price, location } = event.currentTarget.dataset
+      const { id, name, price } = event.currentTarget.dataset;
       if (cartLS.exists(id)) {
-        cartLS.quantity(id, 1)
+        cartLS.quantity(id, 1);
       } else {
-        cartLS.add({ id, name, price })
+        cartLS.add({ id, name, price });
       }
       dataLayer.push({
-        event: 'addToCart',
-        item: { id, name, price },
-        location: location
-      })
-    })
-  })
-}
+        event: 'add_to_cart',
+        product_id: id,
+        product_name: name,
+        product_price: Number(price)
+      });
+    });
+  });
+};
 
 const cartItemsListeners = () => {
   const addToCartButtons = document.querySelectorAll('.cart .add-to-cart')
